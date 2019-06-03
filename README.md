@@ -4,9 +4,12 @@
 [![Build Status](https://travis-ci.org/Nepxion/DiscoveryGray.svg?branch=master)](https://travis-ci.org/Nepxion/DiscoveryGray)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/DiscoveryGray/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/DiscoveryGray&amp;utm_campaign=Badge_Grade_Dashboard)
 
-Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它包括：
+Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它基于Spring Cloud Greenwich版本而制作（使用者可自行改成Finchley版和Edgware版），主要功能包括：
 - 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，主要包括版本路由和区域路由两种
 - 服务灰度权重。采用配置中心配置权重规则映射在全链路而实现，主要包括版本权重和区域区域两种
+- 自定义网关和服务的路由策略。采用简单编程方式，根据业务参数绑定路由策略
+
+阿里巴巴Nacos是新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 
 示例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能。如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
 
@@ -113,63 +116,20 @@ protected String getRouteAddress();
 
 #### 通过跟业务参数绑定自定义路由规则
 
-- Zuul网关，根据业务绑定路由
+- 根据业务参数绑定路由。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 ```java
-public class DiscoveryGrayZuulEnabledStrategy implements DiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayZuulEnabledStrategy.class);
-
-    @Autowired
-    private ZuulStrategyContextHolder zuulStrategyContextHolder;
-
-    @Autowired
-    private PluginAdapter pluginAdapter;
+// 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
+public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
+    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
 
     @Override
-    public boolean apply(Server server, Map<String, String> metadata) {
+    public boolean apply(Server server) {
         // 对Rest调用传来的Header参数（例如：mobile）做策略
-        String mobile = zuulStrategyContextHolder.getHeader("mobile");
-        String version = metadata.get(DiscoveryConstant.VERSION);
+        String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
+        String version = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.VERSION);
 
-        LOG.info("Zuul端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
-
-        if (StringUtils.isNotEmpty(mobile)) {
-            // 手机号以移动138开头，路由到1.0版本的服务上
-            if (mobile.startsWith("138") && StringUtils.equals(version, "1.0")) {
-                return true;
-                // 手机号以联通133开头，路由到2.0版本的服务上
-            } else if (mobile.startsWith("133") && StringUtils.equals(version, "1.1")) {
-                return true;
-            } else {
-                // 其它情况，直接拒绝请求
-                return false;
-            }
-        }
-
-        return true;
-    }
-}
-```
-
-- Spring Cloud Gateway网关，根据业务绑定路由
-```java
-public class DiscoveryGrayGatewayEnabledStrategy implements DiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayGatewayEnabledStrategy.class);
-
-    @Autowired
-    private GatewayStrategyContextHolder gatewayStrategyContextHolder;
-
-    @Autowired
-    private PluginAdapter pluginAdapter;
-
-    @Override
-    public boolean apply(Server server, Map<String, String> metadata) {
-        // 对Rest调用传来的Header参数（例如：mobile）做策略
-        String mobile = gatewayStrategyContextHolder.getHeader("mobile");
-        String version = metadata.get(DiscoveryConstant.VERSION);
-        String serviceId = pluginAdapter.getServerServiceId(server);
-
-        LOG.info("Gateway端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}", mobile, serviceId, version);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上

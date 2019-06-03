@@ -15,9 +15,8 @@
     <dependencies>
         <dependency>
             <groupId>com.nepxion</groupId>
-<!--             <artifactId>discovery-plugin-starter-nacos</artifactId> -->
             <artifactId>discovery-plugin-starter-consul</artifactId>
-            <!-- <version>${discovery.version}</version> -->
+            <version>${discovery.version}</version>
         </dependency>
 
 <!--         <dependency> -->
@@ -28,7 +27,7 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
-            <!-- <version>${discovery.version}</version> -->
+            <version>${discovery.version}</version>
         </dependency>
     </dependencies>
 </project>
