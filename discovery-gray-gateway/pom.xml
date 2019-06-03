@@ -21,10 +21,10 @@
             <!-- <version>${discovery.version}</version> -->
         </dependency>
 
-<!--         <dependency> -->
-<!--             <groupId>com.nepxion</groupId> -->
-<!--             <artifactId>discovery-plugin-config-center-starter-apollo</artifactId> -->
-<!--         </dependency> -->
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-config-center-starter-apollo</artifactId>
+        </dependency>
         
         
         
