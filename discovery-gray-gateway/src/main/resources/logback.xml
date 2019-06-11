@@ -32,15 +32,17 @@
             <charset>UTF-8</charset>
         </encoder>
         <!-- Only log level WARN and above -->
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
+<!--         <filter class="ch.qos.logback.classic.filter.ThresholdFilter"> -->
+<!--             <level>INFO</level> -->
+<!--         </filter> -->
     </appender>
 
     <!-- For loggers in the these namespaces, log at all levels. -->
     <logger name="pedestal" level="ALL" />
     <logger name="hammock-cafe" level="ALL" />
     <logger name="user" level="ALL" />
+    <logger name="com.nepxion" level="trace" />
+    
 
     <root level="INFO">
         <!-- <appender-ref ref="FILE_ASYNC" /> -->

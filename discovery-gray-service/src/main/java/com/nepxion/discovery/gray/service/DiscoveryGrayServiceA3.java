@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.gateway;
+package com.nepxion.discovery.gray.service;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -12,27 +12,23 @@ package com.nepxion.discovery.gray.gateway;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
-import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
-import com.nepxion.discovery.gray.gateway.strategy.DiscoveryGrayEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRouteFilter;
+import com.nepxion.discovery.gray.service.strategy.DiscoveryGrayEnabledStrategy;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableApolloConfig("application")
-public class DiscoveryGrayGateway {
+@EnableFeignClients
+public class DiscoveryGrayServiceA3 {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(DiscoveryGrayGateway.class).run(args);
+        System.setProperty("spring.profiles.active", "a3");
+
+        new SpringApplicationBuilder(DiscoveryGrayServiceA3.class).run(args);
     }
 
     @Bean
-    public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
-        return new GatewayStrategyRouteFilter();
-    }
-
-    @Bean
-    public DiscoveryGrayEnabledStrategy gatewayEnabledStrategy() {
+    public DiscoveryGrayEnabledStrategy serviceEnabledStrategy() {
         return new DiscoveryGrayEnabledStrategy();
     }
 }
