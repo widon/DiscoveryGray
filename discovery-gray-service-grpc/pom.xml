@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<artifactId>discovery-gray-service-grpc</artifactId>
+	<name>discovery-gray-service-grpc</name>
+	<packaging>jar</packaging>
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.nepxion</groupId>
+		<artifactId>discovery-gray</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		  <spring.boot.version>2.0.7.RELEASE</spring.boot.version>
+	</properties>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.nepxion</groupId>
+			<artifactId>discovery-plugin-starter-consul</artifactId>
+			<version>${discovery.version}</version>
+		</dependency>
+
+
+		<!-- cousul客户端 -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.cloud</groupId> -->
+<!-- 			<artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
+<!-- 		</dependency> -->
+		
+
+		<dependency>
+			<groupId>com.nepxion</groupId>
+			<artifactId>discovery-gray-grpc-lib</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		
+		 <!-- grpc服务端 -->
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-server-spring-boot-starter</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-actuator</artifactId>
+	      </dependency>
+	      
+		     <dependency>
+		        <groupId>org.springframework.boot</groupId>
+		        <artifactId>spring-boot-starter-web</artifactId>
+		     </dependency>
+
+	</dependencies>
+	
+
+</project>

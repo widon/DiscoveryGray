@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-gray</artifactId>
     <name>Nepxion Discovery Gray</name>
@@ -12,7 +11,9 @@
         <module>discovery-gray-gateway</module>
         <module>discovery-gray-zuul</module>
         <module>discovery-gray-service</module>
-    </modules>
+	    <module>discovery-gray-service-grpc</module>
+	    <module>discovery-gray-grpc-lib</module>
+  </modules>
 
     <properties>
         <discovery.version>4.8.13</discovery.version>
@@ -21,27 +22,31 @@
         <spring.boot.version>2.0.7.RELEASE</spring.boot.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- GPRC配置 -->
+        <grpc.version>1.14.0</grpc.version>
+    	<protobuf.version>3.5.1</protobuf.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-gray-gateway</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+<!--             <dependency> -->
+<!--                 <groupId>${project.groupId}</groupId> -->
+<!--                 <artifactId>discovery-gray-gateway</artifactId> -->
+<!--                 <version>${project.version}</version> -->
+<!--             </dependency> -->
 
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-gray-zuul</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+<!--             <dependency> -->
+<!--                 <groupId>${project.groupId}</groupId> -->
+<!--                 <artifactId>discovery-gray-zuul</artifactId> -->
+<!--                 <version>${project.version}</version> -->
+<!--             </dependency> -->
 
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-gray-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+<!--             <dependency> -->
+<!--                 <groupId>${project.groupId}</groupId> -->
+<!--                 <artifactId>discovery-gray-service</artifactId> -->
+<!--                 <version>${project.version}</version> -->
+<!--             </dependency> -->
 
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -66,8 +71,20 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-actuator</artifactId>
+	        <version>${spring.boot.version}</version>
+	      </dependency>
+	      <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	        <version>${spring.boot.version}</version>
+	      </dependency>
         </dependencies>
     </dependencyManagement>
+      
+
 
     <build>
         <plugins>
