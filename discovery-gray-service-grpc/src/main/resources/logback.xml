@@ -31,7 +31,7 @@
             <pattern>discovery %date %level [%thread] %logger{10} [%file:%line] - %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
-        <!-- Only log level WARN and above -->
+<!--         Only log level WARN and above -->
 <!--         <filter class="ch.qos.logback.classic.filter.ThresholdFilter"> -->
 <!--             <level>INFO</level> -->
 <!--         </filter> -->
@@ -43,8 +43,6 @@
     <logger name="user" level="ALL" />
     <logger name="com.nepxion" level="ALL" />
     <logger name="net.devh" level="ALL" />
-    <logger name="io.grpc" level="ALL" />
-    
 
     <root level="INFO">
         <!-- <appender-ref ref="FILE_ASYNC" /> -->
