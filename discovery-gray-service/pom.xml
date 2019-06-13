@@ -30,17 +30,5 @@
             <version>${discovery.version}</version>
         </dependency>
         
-        <!-- GRPC 配置 -->
-        
-		     <dependency>
-		      <groupId>com.nepxion</groupId>
-		      <artifactId>discovery-gray-grpc-lib</artifactId>
-		       <version>1.0.0</version>
-		    </dependency>
-		    <dependency>
-		      <groupId>net.devh</groupId>
-		      <artifactId>grpc-client-spring-boot-starter</artifactId>
-		      <version>2.1.0.RELEASE</version>
-		    </dependency>
     </dependencies>
 </project>

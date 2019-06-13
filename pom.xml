@@ -13,7 +13,8 @@
         <module>discovery-gray-service</module>
 	    <module>discovery-gray-service-grpc</module>
 	    <module>discovery-gray-grpc-lib</module>
-  </modules>
+	    <module>discovery-gray-service-client</module>
+    </modules>
 
     <properties>
         <discovery.version>4.8.13</discovery.version>
