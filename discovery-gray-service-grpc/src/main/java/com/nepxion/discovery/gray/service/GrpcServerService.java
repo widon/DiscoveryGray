@@ -43,7 +43,7 @@ public class GrpcServerService extends SimpleGrpc.SimpleImplBase {
 
         String serviceInfo =  stringBuilder.toString();
     	
-        HelloReply reply = HelloReply.newBuilder().setMessage(serviceInfo+" ==>Hello," + req.getName()).build();
+        HelloReply reply = HelloReply.newBuilder().setMessage(req.getName()+serviceInfo).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }

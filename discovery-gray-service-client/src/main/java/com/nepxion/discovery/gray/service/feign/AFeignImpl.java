@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.gray.service.GrpcClientService;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-gray-service-a")
@@ -25,12 +26,18 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
 
     @Autowired
     private BFeign bFeign;
+    
+    @Autowired
+    private GrpcClientService grpcClientService;
+    
 
     @Override
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
-        value = bFeign.invoke(value);
-
+//        value = bFeign.invoke(value);
+        
+        value = grpcClientService.sendMessage(value);
+        
         LOG.info("调用路径：{}", value);
 
         return value;
