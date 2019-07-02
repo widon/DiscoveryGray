@@ -14,7 +14,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
-import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.nepxion.discovery.gray.gateway.strategy.DiscoveryGrayEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRouteFilter;
 
